@@ -2,9 +2,9 @@ package model
 
 import (
 	"context"
-	"os"
 	"strings"
 
+	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/mail"
 )
@@ -24,7 +24,7 @@ type GaeMail struct {
 func (gaeMail *GaeMail) Send() (err error) {
 	ctx := gaeMail.Ctx
 	msg := &mail.Message{
-		Sender:  os.Getenv("MAIL_SENDER"),
+		Sender:  "noreply@" + appengine.AppID(ctx) + ".appspotmail.com",
 		To:      strings.Split(gaeMail.To, ","),
 		Cc:      strings.Split(gaeMail.CC, ","),
 		Bcc:     strings.Split(gaeMail.BCC, ","),
