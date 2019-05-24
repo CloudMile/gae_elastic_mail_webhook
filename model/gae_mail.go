@@ -24,12 +24,13 @@ type GaeMail struct {
 func (gaeMail *GaeMail) Send() (err error) {
 	ctx := gaeMail.Ctx
 	msg := &mail.Message{
-		Sender:  "noreply@" + appengine.AppID(ctx) + ".appspotmail.com",
-		To:      strings.Split(gaeMail.To, ","),
-		Cc:      strings.Split(gaeMail.CC, ","),
-		Bcc:     strings.Split(gaeMail.BCC, ","),
-		Subject: gaeMail.Subject,
-		Body:    gaeMail.Body,
+		Sender:   "noreply@" + appengine.AppID(ctx) + ".appspotmail.com",
+		To:       strings.Split(gaeMail.To, ","),
+		Cc:       strings.Split(gaeMail.CC, ","),
+		Bcc:      strings.Split(gaeMail.BCC, ","),
+		Subject:  gaeMail.Subject,
+		Body:     gaeMail.Body,
+		HTMLBody: gaeMail.HTMLBody,
 	}
 
 	if err = mail.Send(ctx, msg); err != nil {
