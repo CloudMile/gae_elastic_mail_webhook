@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/cloudmile/gae_elastic_mail_webhook/model"
@@ -81,8 +82,8 @@ func checkContentType(ctx context.Context, contentType string) (reContentType st
 func makeGaeMail(ctx context.Context, form *model.Form) (gaeMail model.GaeMail) {
 	gaeMail = model.GaeMail{
 		Ctx:      ctx,
-		To:       "itsupport@mile.cloud",
-		Subject:  "[cloudmile.vip][mail] " + form.Subject,
+		To:       os.Getenv("SEND_TO"),
+		Subject:  os.Getenv("SEND_SUBJECT") + form.Subject,
 		Body:     "From: " + form.FromEmail + "\nTo: " + form.ToList + "\n" + form.BodyText,
 		HTMLBody: "<p>From: " + form.FromEmail + "</p><p>To: " + form.ToList + "</p>" + form.BodyHTML,
 	}

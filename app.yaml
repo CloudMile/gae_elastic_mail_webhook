@@ -11,3 +11,9 @@ automatic_scaling:
   max_idle_instances: automatic
   min_pending_latency: automatic
   max_pending_latency: automatic
+
+env_variables:
+  SEND_TO: "<YOUR_MAIL_TO>"
+  WEBHOOKS_TO: "<YOUR_MAIL_TO>"
+  SEND_SUBJECT: "<YOUR_MAIL_SUBJECT>"
+  WEBHOOKS_SUBJECT: "<YOUR_MAIL_SUBJECT>"
