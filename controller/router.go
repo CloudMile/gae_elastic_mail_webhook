@@ -11,6 +11,7 @@ import (
 func Router() (router *mux.Router) {
 	router = mux.NewRouter()
 	router.HandleFunc("/send", AddContext(Send)).Methods("POST")
+	router.HandleFunc("/webhooks", AddContext(Webhooks)).Methods("GET")
 
 	return
 }
