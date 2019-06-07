@@ -29,6 +29,10 @@ func makeWebhooksObj(webhooksObj *model.WebhooksObj, queryValues url.Values) {
 	webhooksObj.Date = strings.Join(queryValues["date"], ", ")
 	webhooksObj.Status = strings.Join(queryValues["status"], ", ")
 	webhooksObj.Channel = strings.Join(queryValues["channel"], ", ")
+	webhooksObj.Category = strings.Join(queryValues["category"], ", ")
+
+	decodedSubject, _ := url.QueryUnescape(strings.Join(queryValues["subject"], ", "))
+	webhooksObj.Subject = decodedSubject
 }
 
 func makeGaeMailForWebhooks(ctx context.Context, webhooksObj *model.WebhooksObj) (gaeMail model.GaeMail) {
@@ -36,7 +40,7 @@ func makeGaeMailForWebhooks(ctx context.Context, webhooksObj *model.WebhooksObj)
 		Ctx:     ctx,
 		To:      os.Getenv("WEBHOOKS_TO"),
 		Subject: os.Getenv("WEBHOOKS_SUBJECT") + webhooksObj.Status + "]",
-		Body:    "emails: `" + webhooksObj.To + "` have been " + webhooksObj.Status + " at " + webhooksObj.Date,
+		Body:    webhooksObj.EmailBody(),
 	}
 
 	return
