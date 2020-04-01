@@ -84,8 +84,7 @@ func makeGaeMail(ctx context.Context, form *model.Form) (gaeMail model.GaeMail) 
 		Ctx:      ctx,
 		To:       os.Getenv("SEND_TO"),
 		Subject:  os.Getenv("SEND_SUBJECT") + form.Subject,
-		Body:     "From: " + form.FromEmail + "\nTo: " + form.ToList + "\n" + form.BodyText,
-		HTMLBody: "<p>From: " + form.FromEmail + "</p><p>To: " + form.ToList + "</p>" + form.BodyHTML,
+		HTMLBody: "<p>From: " + form.FromEmail + "</p><p>To: " + form.ToList + "</p>" + form.BodyHTML + "<hr/><p>Text body:</p><pre>" + form.BodyText + "</pre>",
 	}
 
 	return
